@@ -1,0 +1,82 @@
+.main-content{
+    display: flex;
+    flex-direction: row;
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+.right{
+    display: flex;
+    flex: 4;
+    flex-direction: column;
+}
+.ship_title{
+    text-align: center;
+    width: 100%;
+    font-size: 300%;
+    margin-top: 25%;
+}
+
+.left select{
+    width: 60%;
+    margin: auto;
+    margin-top: 20%;
+    height: 10%;
+    font-size: 150%;
+}
+
+.rotate {
+    text-align:center;
+    white-space:nowrap;
+    transform-origin:50% 50%;
+    transform: rotate(90deg);
+
+}
+.rotate:before {
+    content:'';
+    padding-top:110%;/* takes width as reference, + 10% for faking some extra padding */
+    display:inline-block;
+    vertical-align:middle;
+}
+td{
+    vertical-align: middle;
+    text-align: center;
+}
+table{
+    margin: auto;
+    font-size: 140%;
+    flex: 20;
+}
+@supports (zoom:2) {
+    input[type="radio"],  input[type=checkbox]{
+        zoom: 2;
+    }
+}
+@supports not (zoom:2) {
+    input[type="radio"],  input[type=checkbox]{
+        transform: scale(2);
+        margin: 15px;
+    }
+}
+.save_but{
+    width: 20%;
+    margin: auto;
+    font-size:130%;
+    margin-top:10%;
+}
+.message{
+    position: absolute;
+    z-index: 10;
+    left: 8%;
+    bottom: 5%;
+    max-width: 25%;
+    min-height: 5%;
+    font-size: 200%;
+    padding: 2%;
+    border-radius: 40px;
+    background-color: #00b894;
+    color: aliceblue;
+    text-align: center;
+}

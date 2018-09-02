@@ -1,0 +1,50 @@
+.fade{
+    background: black;
+    opacity: 0.3;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    top: 0;
+    left: 0;
+}
+.buy_ticket{
+    position: absolute;
+    width: 60%;
+    text-align: left;
+    min-height: 20%;
+    left: 20%;
+    top:30%;
+    z-index: 10;
+    padding-left: 2%;
+    background-color: coral;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+}
+.radio_holder{
+    flex: 1;
+    float: left;
+    width: 30%;
+}
+.count{
+    flex: 1;
+    text-align: center;
+}
+.excursion_list{
+    flex:1;
+
+}
+.excursion_list .select{
+    width: 80%;
+    background-color: aliceblue;
+    min-height: 30px;
+    max-height: 110px;
+    overflow-y: scroll;
+    border: 1px solid black;
+    margin: auto;
+}
+.button_holder{
+    flex: 1;
+    text-align: center;
+}
