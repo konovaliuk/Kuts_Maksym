@@ -17,10 +17,11 @@
     top:30%;
     z-index: 10;
     padding-left: 2%;
-    background-color: coral;
+    background-color: #00b894;
     border: 2px solid black;
     display: flex;
     align-items: center;
+    color:white;
 }
 .radio_holder{
     flex: 1;
@@ -43,6 +44,7 @@
     overflow-y: scroll;
     border: 1px solid black;
     margin: auto;
+    color: black;
 }
 .button_holder{
     flex: 1;
