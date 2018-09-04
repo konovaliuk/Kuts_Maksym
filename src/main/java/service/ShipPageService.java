@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShipPageService {
     public static Ship getShipById(Long id) {
@@ -19,7 +20,7 @@ public class ShipPageService {
         TicketDAO ticketDAO = DataBaseFactory.getTicketDAO();
         List<Ticket> allTickets = ticketDAO.findTicketsByShipId(shipId);
         for (Ticket item : allTickets) {
-            if (item.getTicketTypeId() == typeId) {
+            if (item.getTicketTypeId() == typeId && !item.isBooked()) {
                 result.add(item);
             }
         }
@@ -53,11 +54,33 @@ public class ShipPageService {
         ExcursionDAO excursionDAO = DataBaseFactory.getExcursionDAO();
         RouteHasPortDAO routeHasPortDAO = DataBaseFactory.getRouteHasPortDAO();
         Ship ship = shipDAO.findShipById(shipId);
-        for(Long i :new HashSet<>(routeHasPortDAO.findAllPortsIdByRouteId(ship.getRouteId()))){
-            for(Excursion e:excursionDAO.findExcursionsByPortId(i)){
+        for (Long i : new HashSet<>(routeHasPortDAO.findAllPortsIdByRouteId(ship.getRouteId()))) {
+            for (Excursion e : excursionDAO.findExcursionsByPortId(i)) {
                 result.add(e);
             }
         }
         return result;
+    }
+
+    public static String BuyTickets(Long shipId, final Integer ticketTypeId, int count, List<Long> excurionList, Long userId) {
+        TicketDAO ticketDAO = DataBaseFactory.getTicketDAO();
+        TicketHasExcursionDAO ticketHasExcursionDAO = DataBaseFactory.getTicketHasExcursionDAO();
+
+        List<Ticket> tickets = ticketDAO.findFreeTicketsByShipId(shipId).stream().filter(t -> t.getTicketTypeId() == ticketTypeId).collect(Collectors.toList());
+        if (tickets.size() < count) {
+            return "error";
+        } else {
+            for (int i = 0; i < count; i++) {
+                Ticket ticket = tickets.get(i);
+                ticket.setUserId(userId);
+
+                ticketDAO.updateTicket(ticket.getId(), ticket);
+                for (Long excursionId : excurionList) {
+                    ticketHasExcursionDAO.addRow(ticket.getId(), excursionId);
+                }
+            }
+        }
+
+        return "success";
     }
 }

@@ -23,15 +23,58 @@
         $(document).ready(function () {
             $(".fade").hide();
             $(".buy_ticket").hide();
-            $("#buy_button").prop('disabled',true);
+            $("#buy_button").prop('disabled', true);
 
-            $("#buy").on('click',function () {
+            var radioChecked = false;
+
+            var CheckValidation = function () {
+                if (radioChecked && $('#count').val() > 0) {
+                    $('#buy_button').prop('disabled', false);
+                } else {
+                    $('#buy_button').prop('disabled', true);
+                }
+            };
+
+            $("#buy").on('click', function () {
                 $(".fade").fadeIn();
                 $(".buy_ticket").fadeIn();
             });
-            $(".fade").on('click',function () {
+            $(".fade").on('click', function () {
                 $(".fade").fadeOut();
                 $(".buy_ticket").fadeOut();
+            });
+
+            $('input[type=radio][name=ticketType]').on('change', function () {
+                radioChecked = true;
+                CheckValidation();
+            });
+            $('#count').on('change', function () {
+                if ($('#count').val() < 0) {
+                    $('#count').val(0);
+                }else {
+                    CheckValidation();
+                }
+            });
+
+            $('#buy_button').on('click',function () {
+                var ticketTypeId = $('input[type=radio][name=ticketType]:checked').val();
+                var countOfTickets = $('#count').val();
+                var excursionArray = JSON.stringify($("input:checkbox[name=excursionOption]:checked").map(function(){return $(this).val()}).get());
+                $.ajax({
+                    type:'post',
+                    data:{
+                        command:'buyTicketCommand',
+                        shipId:'${requestScope.get('ship').id}',
+                        ticketTypeId:ticketTypeId,
+                        count:countOfTickets,
+                        excursionArray:excursionArray
+                    },
+                    url:'Controller',
+                    success:function (data) {
+                        alert(data);
+                        window.location.replace("/profile");
+                    }
+                });
             });
 
         });
@@ -53,8 +96,8 @@
             <div class="buy_button">
                 <c:choose>
                     <c:when test="${user.userRole == 'admin'}"></c:when>
-                    <c:when test="${user.userRole == 'user'}" >
-                            <input id="buy" type="submit" value="<fmt:message key="buyTicket"/> ">
+                    <c:when test="${user.userRole == 'user'}">
+                        <input id="buy" type="submit" value="<fmt:message key="buyTicket"/> ">
                     </c:when>
                     <c:otherwise>
                         <form action="/login">
@@ -67,7 +110,7 @@
             </div>
         </div>
         <div class="right_side">
-            <div class="des_title"><fmt:message key="description"/> </div>
+            <div class="des_title"><fmt:message key="description"/></div>
             <div class="des_holder">
                 <div class="element">
                     <fmt:message key="humanCapacity"/> - ${requestScope.get('ship').humanCapacity}
@@ -89,39 +132,40 @@
 <div class="fade"></div>
 <div class="buy_ticket">
     <div class="radio_holder">
-      <%--  <input type="radio" name="ticketType">Simple
-        <br>
-        cinema,hsdfohf,sdgsdgjsdg,dhsdgjiogds
-        <br>
-        <input type="radio" name="ticketType">
-        Vip
-        <br>
-        cinema,hsdfohf,sdgsdgjsdg,dhsdgjiogds
-        <br>
-        <input type="radio" name="ticketType">Vip+
-        <br>
-        cinema,hsdfohf,sdgsdgjsdg,dhsdgjiogds
-        <br>--%>
+        <%--  <input type="radio" name="ticketType">Simple
+          <br>
+          cinema,hsdfohf,sdgsdgjsdg,dhsdgjiogds
+          <br>
+          <input type="radio" name="ticketType">
+          Vip
+          <br>
+          cinema,hsdfohf,sdgsdgjsdg,dhsdgjiogds
+          <br>
+          <input type="radio" name="ticketType">Vip+
+          <br>
+          cinema,hsdfohf,sdgsdgjsdg,dhsdgjiogds
+          <br>--%>
         <c:forEach items="${requestScope.get('ticketTypeCount')}" var="item">
-            <input type="radio" name="ticketType" value="${item.key.ticketType}"> "${item.key.ticketType}" - ${item.value}<br>
-                <c:forEach items="${requestScope.get('ticketTypeAdditionalServices')[item.key.id]}" var="innerItem">
-                    ${innerItem.title},
-                </c:forEach>
-                <br>
+            <input type="radio" name="ticketType"
+                   value="${item.key.id}"> "${item.key.ticketType}" - ${item.value}<br>
+            <c:forEach items="${requestScope.get('ticketTypeAdditionalServices')[item.key.id]}" var="innerItem">
+                ${innerItem.title},
+            </c:forEach>
+            <br>
         </c:forEach>
     </div>
     <div class="count">
-        <input type="number" value="0">
+        <input id="count" type="number" value="0">
     </div>
     <div class="excursion_list">
         <div class="select">
             <c:forEach items="${requestScope.get('excursionList')}" var="excursion">
-                <input type="checkbox" value="${excursion.id}">${excursion.title} - ${excursion.price}<br>
+                <input type="checkbox" name="excursionOption" value="${excursion.id}">${excursion.title} - ${excursion.price}<br>
             </c:forEach>
         </div>
     </div>
     <div class="button_holder">
-        <button id="buy_button">Add to Cart</button>
+        <button id="buy_button">Buy</button>
     </div>
 
 </div>

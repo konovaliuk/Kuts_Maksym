@@ -20,6 +20,7 @@ public class ControllerHelper {
         commands.put("adminPageCommand",new AdminPageCommand());
         commands.put("ticketTypeHasServiceCommand",new TicketTypeHasServicesCommand());
         commands.put("updateTypeHasService",new UpdateTypeHasServicesCommand());
+        commands.put("buyTicketCommand",new BuyTicketCommand());
     }
 
     public static ControllerHelper getInstance(){

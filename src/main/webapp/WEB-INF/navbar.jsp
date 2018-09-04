@@ -27,12 +27,12 @@
     </c:choose>
     <ul class="languagepicker">
         <c:if test="${lang == 'uk'}">
-        <a href="/?command=changeLanguage&language=uk"><li><img src="http://i66.tinypic.com/30cqbeg.png"/>Українська</li></a>
-        <a href="/?command=changeLanguage&language=us"><li><img src="http://i64.tinypic.com/fd60km.png"/>English</li></a>
+        <a href="/?command=changeLanguage&language=uk"><li><img src="../images/uk.png"/>Українська</li></a>
+        <a href="/?command=changeLanguage&language=us"><li><img src="../images/us.png"/>English</li></a>
         </c:if>
         <c:if test="${lang == 'us'}">
-            <a href="/?command=changeLanguage&language=us"><li><img src="http://i64.tinypic.com/fd60km.png"/>English</li></a>
-            <a href="/?command=changeLanguage&language=uk"><li><img src="http://i66.tinypic.com/30cqbeg.png"/>Українська</li></a>
+            <a href="/?command=changeLanguage&language=us"><li><img src="../images/us.png"/>English</li></a>
+            <a href="/?command=changeLanguage&language=uk"><li><img src="../images/uk.png"/>Українська</li></a>
         </c:if>
     </ul>
 

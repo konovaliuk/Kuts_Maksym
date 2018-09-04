@@ -10,11 +10,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <h5><fmt:message key="welcome"/> ${user.lastName} ${user.firstName}</h5>
-<form class="push flex-item">
-    <input class="button" type="submit" value=<fmt:message key="profile"/>>
-</form>
-<a href="/basket" class="button"><fmt:message key="basket"/></a>
+<a href="/profile" class="button"><fmt:message key="profile"/></a>
 <form action="/Controller" method="post" class="push flex-item">
     <input type="hidden" name="command" value="logout">
-    <input class="button" type="submit" value=<fmt:message key="signout"/>>
+    <input class="button" type="submit" value="<fmt:message key="signout"/>">
 </form>

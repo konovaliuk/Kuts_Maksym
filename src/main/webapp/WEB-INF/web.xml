@@ -15,6 +15,7 @@
         <url-pattern>/register</url-pattern>
         <url-pattern>/login</url-pattern>
         <url-pattern>/basket</url-pattern>
+        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
 
     <filter>

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminPageService {
+
     public static List<Ship> getAllShips(){
         ShipDAO shipDAO = DataBaseFactory.getShipDAO();
         return shipDAO.findAllShips();
@@ -22,7 +23,7 @@ public class AdminPageService {
         TicketTypeDAO ticketTypeDAO = DataBaseFactory.getTicketTypeDAO();
         return ticketTypeDAO.findAllTicketTypes();
     }
-    public static HashMap<Integer,List<Integer>> getTypeServiceDependencyDyShipId(Long id){
+    public static HashMap<Integer,List<Integer>> getTypeServiceDependencyByShipId(Long id){
         TicketTypeHasAdditionalServiceAndShipDAO dao = DataBaseFactory.getTypeServiceDAO();
         return dao.findListOfTicketTypesAndServicesByShipId(id);
     }

@@ -17,13 +17,14 @@ public class RegisterCommand implements Command {
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
 
-        String message = AuthorizationService.registerUser(user);
-        if( message != null){
-            request.setAttribute("message",message);
-            request.setAttribute("username",user.getUsername());
-            request.setAttribute("userEmail",user.getEmail());
-            request.setAttribute("firstName",user.getFirstName());
-            request.setAttribute("lastName",user.getLastName());
+        String errorMessage = AuthorizationService.registerUser(user);
+
+        if (errorMessage != null) {
+            request.setAttribute("message", errorMessage);
+            request.setAttribute("username", user.getUsername());
+            request.setAttribute("userEmail", user.getEmail());
+            request.setAttribute("firstName", user.getFirstName());
+            request.setAttribute("lastName", user.getLastName());
             return "register.jsp";
         }
         return "index.jsp";

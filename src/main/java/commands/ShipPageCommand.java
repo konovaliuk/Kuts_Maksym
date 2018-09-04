@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class ShipPageCommand implements Command{
 
     @Override
@@ -18,7 +19,7 @@ public class ShipPageCommand implements Command{
         Long shipId = Long.parseLong(request.getParameter("shipId"));
         Ship ship = ShipPageService.getShipById(shipId);
         if(ship == null ){
-            return request.getRequestURI();
+            return "index.jsp";
         }
 
         HashMap<TicketType,Integer> ticketTypeCount = new HashMap<>();
@@ -27,6 +28,7 @@ public class ShipPageCommand implements Command{
         for(TicketType type : ShipPageService.getAllTicketTypes()){
             List<Ticket> tickets = ShipPageService.getFreeTicketsByTicketTypeId(shipId,type.getId());
             List<AdditionalService> services = ShipPageService.getAdditionalServices(shipId,type.getId());
+
             if(tickets != null){
                 ticketTypeCount.put(type,tickets.size());
             }
@@ -40,5 +42,6 @@ public class ShipPageCommand implements Command{
         request.setAttribute("ticketTypeCount",ticketTypeCount);
         request.setAttribute("ship",ship);
         return "shipPage.jsp";
+
     }
 }

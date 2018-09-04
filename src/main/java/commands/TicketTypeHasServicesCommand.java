@@ -1,6 +1,7 @@
 package commands;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 import service.AdminPageService;
 
@@ -16,7 +17,7 @@ public class TicketTypeHasServicesCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Long ship_id = Long.valueOf(request.getParameter("ship_id"));
-        HashMap<Integer, List<Integer>> result = AdminPageService.getTypeServiceDependencyDyShipId(ship_id);
+        HashMap<Integer, List<Integer>> result = AdminPageService.getTypeServiceDependencyByShipId(ship_id);
         String resToJson = new Gson().toJson(result);
         try(PrintWriter out = response.getWriter()){
             out.print(resToJson);

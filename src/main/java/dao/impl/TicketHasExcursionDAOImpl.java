@@ -11,8 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketHasExcursionDAOImpls implements TicketHasExcursionDAO {
-    private static final Logger logger =Logger.getLogger(TicketHasExcursionDAOImpls.class.getSimpleName());
+public class TicketHasExcursionDAOImpl implements TicketHasExcursionDAO {
+    private static final Logger logger =Logger.getLogger(TicketHasExcursionDAOImpl.class.getSimpleName());
+    private static TicketHasExcursionDAOImpl instance;
+
+    private TicketHasExcursionDAOImpl(){}
+
     @Override
     public void addRow(Long ticketId, Long excursionId) {
         String sql ="INSERT INTO ticket_has_excursion(ticket_id, excursion_id) VALUES (?,?)";
@@ -40,5 +44,12 @@ public class TicketHasExcursionDAOImpls implements TicketHasExcursionDAO {
             logger.error(e.getMessage());
         }
         return result;
+    }
+
+    public static TicketHasExcursionDAOImpl getInstance(){
+        if(instance == null){
+            instance = new TicketHasExcursionDAOImpl();
+        }
+        return instance;
     }
 }

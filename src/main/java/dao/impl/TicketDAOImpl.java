@@ -28,6 +28,12 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
+    public List<Ticket> findFreeTicketsByShipId(Long shipId) {
+        String SQL = "SELECT * FROM ticket WHERE ship_id = ? AND booked = 0";
+        return findTicketsDynamically(SQL,shipId);
+    }
+
+    @Override
     public List<Ticket> findAllTickets() {
         String SQL = "SELECT * FROM ticket";
         return findTicketsDynamically(SQL);
@@ -36,6 +42,12 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public List<Ticket> findTicketsDynamically(String sql, Object... values) {
         return DBUtil.findObjectDynamically(DBUtil.ObjectType.Ticket,sql,values);
+    }
+
+    @Override
+    public void updateTicket(Long ticketId, Ticket ticket) {
+        String SQL = "UPDATE ticket SET user_id = ?, booked = 1 WHERE ticket_id = ?";
+        DBUtil.updateObjectDynamically(SQL,ticket.getUserId(),ticketId);
     }
 
     public static TicketDAOImpl getInstance(){

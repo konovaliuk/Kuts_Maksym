@@ -34,10 +34,10 @@ public class MyTag implements Tag {
         ShipDAO shipDAO = DataBaseFactory.getShipDAO();
         List<Ship> ships = shipDAO.findAllShips();
         try {
-            for (Ship item:ships) {
-                String toOut = "<a href=\"/ship?shipId="+item.getId()+"\"><div class=\"cruise_element\" style=\"background-image: url(images/cruise_"+item.getId()+".jpg)\">\n" +
-                        "                <h10>"+item.getTitle()+"</h10>\n" +
-                        "                <h11>"+item.getPrice()+"</h11>\n" +
+            for (Ship item : ships) {
+                String toOut = "<a href=\"/ship?shipId=" + item.getId() + "\"><div class=\"cruise_element\" style=\"background-image: url(images/cruise_" + item.getId() + ".jpg)\">\n" +
+                        "                <h10>" + item.getTitle() + "</h10>\n" +
+                        "                <h11>" + item.getPrice() + "</h11>\n" +
                         "                </div></a><br>";
                 pageContext.getOut().println(toOut);
 

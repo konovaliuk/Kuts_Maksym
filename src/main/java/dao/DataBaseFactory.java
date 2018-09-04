@@ -24,5 +24,7 @@ public class DataBaseFactory {
     public static ExcursionDAOImpl getExcursionDAO(){
         return ExcursionDAOImpl.getInstance();
     }
-
+    public static TicketHasExcursionDAOImpl getTicketHasExcursionDAO(){
+        return TicketHasExcursionDAOImpl.getInstance();
+    }
 }
