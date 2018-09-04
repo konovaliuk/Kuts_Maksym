@@ -2,6 +2,7 @@ package dao.impl;
 
 import dao.ConnectionPool;
 import dao.TicketTypeHasAdditionalServiceAndShipDAO;
+import dao.util.TransactionManager;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -51,12 +52,16 @@ public class TicketTypeHasAdditionalServiceAndShipDAOImpl implements TicketTypeH
     @Override
     public void deleteRowByShipIdAndTicketTypeId(Long shipId, Integer ticketTypeId) {
         String SQL = "DELETE FROM ticket_type_has_additional_service WHERE ship_id=? AND ticket_type_id = ?";
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL)) {
+        try {
+
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL);
             statement.setLong(1, shipId);
             statement.setInt(2, ticketTypeId);
             statement.execute();
         } catch (SQLException e) {
             logger.error(e.getMessage());
+            TransactionManager.rollback();
         }
     }
 
@@ -64,13 +69,16 @@ public class TicketTypeHasAdditionalServiceAndShipDAOImpl implements TicketTypeH
     @Override
     public void addRow(Long shipId, Integer ticketTypeId, Integer serviceId) {
         String SQL = "INSERT INTO ticket_type_has_additional_service(ship_id,ticket_type_id,additional_service_id) VALUES (?,?,?)";
-        try (Connection connection = ConnectionPool.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL)) {
+        try {
+            Connection connection = ConnectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(SQL);
             statement.setLong(1, shipId);
             statement.setInt(2, ticketTypeId);
             statement.setInt(3, serviceId);
             statement.execute();
         } catch (SQLException e) {
             logger.error(e.getMessage());
+            TransactionManager.rollback();
         }
 
     }

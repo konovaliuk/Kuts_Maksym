@@ -30,23 +30,9 @@ public class DBUtil {
         } catch (SQLException e) {
             logger.error(e.getMessage());
             if (connection != null) {
-                try {
-                    connection.rollback();
-                } catch (SQLException ex) {
-                    logger.error(e.getMessage());
-                }
+                TransactionManager.rollback();
             }
 
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error(e.getMessage());
-                }
-
-            }
         }
     }
 

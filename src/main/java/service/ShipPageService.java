@@ -1,6 +1,7 @@
 package service;
 
 import dao.*;
+import dao.util.TransactionManager;
 import enteties.*;
 
 import java.util.ArrayList;
@@ -70,6 +71,8 @@ public class ShipPageService {
         if (tickets.size() < count) {
             return "error";
         } else {
+
+            TransactionManager.startTransaction();
             for (int i = 0; i < count; i++) {
                 Ticket ticket = tickets.get(i);
                 ticket.setUserId(userId);
@@ -79,6 +82,7 @@ public class ShipPageService {
                     ticketHasExcursionDAO.addRow(ticket.getId(), excursionId);
                 }
             }
+            TransactionManager.endTransaction();
         }
 
         return "success";

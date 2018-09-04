@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class MyTag implements Tag {
+public class ShipsTag implements Tag {
     PageContext pageContext;
 
     @Override

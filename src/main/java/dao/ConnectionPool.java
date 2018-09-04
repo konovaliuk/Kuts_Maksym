@@ -1,10 +1,12 @@
 package dao;
 
+import dao.util.TransactionManager;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -22,13 +24,21 @@ public class ConnectionPool {
         }
     }
 
+    public static DataSource getDataSource(){
+        return dataSource;
+    }
     public static Connection getConnection(){
-        Connection connection = null;
-        try {
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
+
+        if(TransactionManager.isTransactional()){
+            return TransactionManager.getConnection();
+        }else {
+            Connection connection = null;
+            try {
+                connection = dataSource.getConnection();
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+            }
+            return connection;
         }
-        return connection;
     }
 }

@@ -47,6 +47,15 @@ public class Filter implements javax.servlet.Filter {
                 case "/adminPage":
                     request.setAttribute("command","adminPageCommand");
                     break;
+                case "/profile":
+                    User user = (User) request.getSession().getAttribute("user");
+                    if(user != null && user.getUserRole().equals("user")) {
+                        request.setAttribute("command", "profilePageCommand");
+                    }else {
+                        request.setAttribute("redirect","index.jsp");
+                    }
+
+                    break;
 
             }
         }

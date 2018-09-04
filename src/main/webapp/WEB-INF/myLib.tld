@@ -10,8 +10,17 @@
     <uri>http://mycompany.com</uri>
 <tag>
     <name>printships</name>
-    <tag-class>tag.MyTag</tag-class>
+    <tag-class>tag.ShipsTag</tag-class>
     <body-content>empty</body-content>
+</tag>
+<tag>
+    <name>printTicket</name>
+    <tag-class>tag.TicketTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>ticketId</name>
+        <required>true</required>
+    </attribute>
 </tag>
     <!-- Invoke 'Generate' action to add tags or functions -->
 

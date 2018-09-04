@@ -21,6 +21,7 @@ public class ControllerHelper {
         commands.put("ticketTypeHasServiceCommand",new TicketTypeHasServicesCommand());
         commands.put("updateTypeHasService",new UpdateTypeHasServicesCommand());
         commands.put("buyTicketCommand",new BuyTicketCommand());
+        commands.put("profilePageCommand",new ProfilePageCommand());
     }
 
     public static ControllerHelper getInstance(){
