@@ -1,6 +1,7 @@
 package service;
 
 import dao.*;
+import dao.util.TransactionManager;
 import enteties.AdditionalService;
 import enteties.Ship;
 import enteties.TicketType;
@@ -29,6 +30,8 @@ public class AdminPageService {
     }
     public static void updateTypeServiceDependency(HashMap<Integer,List<Integer>> map, Long ship_id){
         TicketTypeHasAdditionalServiceAndShipDAO dao = DataBaseFactory.getTypeServiceDAO();
+
+        TransactionManager.startTransaction();
         for(Map.Entry<Integer,List<Integer>> pair:map.entrySet()){
             dao.deleteRowByShipIdAndTicketTypeId(ship_id,pair.getKey());
         }
@@ -39,5 +42,6 @@ public class AdminPageService {
                 }
 
         }
+        TransactionManager.endTransaction();
     }
 }
