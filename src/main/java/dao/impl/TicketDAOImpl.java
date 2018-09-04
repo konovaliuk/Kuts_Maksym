@@ -15,7 +15,6 @@ public class TicketDAOImpl implements TicketDAO {
     public Ticket findTicketById(Long id) {
         String SQL="SELECT * FROM ticket WHERE ticket_id = ?";
         List<Ticket> tickets = findTicketsDynamically(SQL,id);
-        System.out.println("List of ticket = "+tickets.toString());
         if(tickets.size()>0){
             return tickets.get(0);
         }
@@ -26,6 +25,12 @@ public class TicketDAOImpl implements TicketDAO {
     public List<Ticket> findTicketsByShipId(Long shipId) {
         String SQL = "SELECT * FROM ticket WHERE ship_id = ?";
         return findTicketsDynamically(SQL,shipId);
+    }
+
+    @Override
+    public List<Ticket> findTicketsByUserId(Long userId) {
+        String SQL = "SELECT * FROM ticket WHERE user_id = ?";
+        return findTicketsDynamically(SQL,userId);
     }
 
     @Override

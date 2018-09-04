@@ -77,6 +77,8 @@ public class TicketTag implements Tag {
         String finalTagText = "<div class=\"ticket\">\n" +
                 "            Ticket # <h14>"+ticketId+"</h14>\n" +
                 "            <br>\n" +
+                "            Ship # <h14>"+ship.getTitle()+"</h14>\n" +
+                "            <br>\n" +
                 "            Date start trip: <h14>"+startDate+"</h14>\n" +
                 "            <br>\n" +
                 "            Date end trip: <h14>"+endDate+"</h14>\n" +

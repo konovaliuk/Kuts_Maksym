@@ -20,6 +20,7 @@
     <attribute>
         <name>ticketId</name>
         <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
     </attribute>
 </tag>
     <!-- Invoke 'Generate' action to add tags or functions -->

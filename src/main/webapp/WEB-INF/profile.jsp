@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="mytag" uri="http://mycompany.com" %>
+<%@ taglib uri="myLib.tld" prefix="mytag" %>
 
 <c:if test='${sessionScope.get("lang") == null}'>
     <c:set var="lang" scope="session" value="uk"/>
@@ -37,9 +37,13 @@
             <br>
             Excursion: <h14>ex1, ex2, ex3, ex4, ex5</h14>
         </div>--%>
-        <mytag:printTicket ticketId="41"/>
+      <%--  <mytag:printTicket ticketId="41"/>
         <mytag:printTicket ticketId="42"/>
-        <mytag:printTicket ticketId="43"/>
+        <mytag:printTicket ticketId="43"/>--%>
+
+        <c:forEach items="${requestScope.get('tickets')}" var="ticket">
+            <mytag:printTicket ticketId="${ticket.id}"/>
+        </c:forEach>
 
 
 
